@@ -16,8 +16,6 @@ for i in range(0, x):
             print(-1)
     elif command[0] == 'size':
         print(len(stack))
-    elif command[0] == 'empty':
-        if len(stack) > 0:
             print(0)
         else:
             print(1)

@@ -14,4 +14,3 @@ for i in range(0,n):
 
     result = ' '.join(sounds)
     print(result)
-

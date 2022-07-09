@@ -1,3 +1,1 @@
-# Algorithm
-
-BOJ / Programmers
+Programmers

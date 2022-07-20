@@ -19,47 +19,54 @@ public class Main {
         for (int i=0; i<n; i++) {
             nums[i] = Integer.parseInt(st.nextToken());
         }
-
-
-        // Arrays.sort(nums);           //sort 후, k번째 수 출력하기 - 성공
-        quickSort(nums, 0, n-1);    //Quick Selection 사용 - 93%에서 계속 시간초과 나서 포기
+        // Arrays.sort(nums);           // Solution 1. sort 후, k번째 수 출력하기 - 성공
+        quickSort(nums, 0, n-1);    // Solution 2. Quick Selection 사용 (중앙값 pivot 사용해야만 성공;;)
         System.out.println(nums[k]);
     }
 
     private static void quickSort(int[] arr, int left, int right) {
-        if (left >= right) {
-            return;
-        }
         
-        int pivot = partition(arr, left, right);
-        // pivot 왼쪽에 있는 수는 정렬되있던 말던 pivot보다 작은 수들
-        // 따라서 pivot에 위치한 값은 "전체에서 pivot + 1번째"로 큰 수라는 의미
-        if (pivot > k) 
-            quickSort(arr, left, pivot - 1);
-        else if (pivot < k) 
-            quickSort(arr, pivot + 1, right);
-        else 
-            return;
+        if (left < right) {
+            int pivot = partition(arr, left, right);
+            // pivot 왼쪽에 있는 수는 정렬되있던 말던 pivot보다 작은 수들
+            // 따라서 pivot에 위치한 값은 "전체에서 pivot + 1번째"로 큰 수라는 의미
+            if (pivot == k) {
+                return;
+            } else if (pivot > k) {
+                quickSort(arr, left, pivot - 1);
+            } else {
+                quickSort(arr, pivot + 1, right);
+            }
+        }
     }
 
     private static int partition(int[] arr, int left, int right) {
+        if (left + 1 == right) {
+            if (arr[left] > arr[right]) {
+                swap(arr, left, right);
+            }
+            return right;
+        }
+
         int mid = (left + right) / 2;
-	    swap(arr, left, mid);
-
+	    swap(arr, left, mid);   // 중앙값을 첫 번째 요소로 이동
 	    int pivot = arr[left];
-	    int temp = left;
+	    int i = left+1, j = right;
 
-	    while (left < right) {
-		    while (pivot < arr[right] && left < right) {
-                right--;
+	    while (i <= j) {
+		    while (pivot < arr[j] && j > 0) {
+                j--;
             }
-		    while (pivot >= arr[left] && left < right) {
-                left++;
+		    while (pivot > arr[i] && i < arr.length-1) {
+                i++;
             }
-		    swap(arr, left, right);
+            if (i <= j) {
+                swap(arr, i++, j--);
+            }
 	    }
-        swap(arr, left, temp);
-        return left;
+        arr[left] = arr[j];
+        arr[j] = pivot;
+        return j;
     }
 
     private static void swap(int[] arr, int a, int b) {

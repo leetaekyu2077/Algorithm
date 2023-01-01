@@ -1,22 +1,22 @@
-from sys import stdin
+from itertools import combinations
 
-answers = []
+expr = list(input())
+indices = []
+stk = []
+answers = set()
 
-def remove_parenthesis(expr):
-    stk = []
-    for i in range(len(expr)):
-        if expr[i] == '(':
-            stk.append(i)
-        elif expr[i] == ')':
-            temp = expr[:]
-            del temp[i]
-            del temp[stk.pop()]
-            temp_str = "".join(temp)
-            if temp_str not in answers:
-                answers.append(temp_str)
-                remove_parenthesis(temp)
+for i in range(len(expr)):
+    if expr[i] == '(':
+        stk.append(i)
+    elif expr[i] == ')':
+        indices.append((stk.pop(), i))
 
-remove_parenthesis(list(stdin.readline().rstrip()))
-answers.sort()
-for answer in answers:
-    print(answer)
+for i in range(len(indices)):
+    for comb in combinations(indices, i+1):
+        temp = expr[:]
+        for idx in comb:
+            temp[idx[0]] = temp[idx[1]] = ""
+        answers.add("".join(temp))      
+
+for item in sorted(list(answers)):
+    print(item)

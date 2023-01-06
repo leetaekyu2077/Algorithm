@@ -5,7 +5,6 @@ input = sys.stdin.readline
 N = int(input())
 vertices = [[0] for _ in range(N+1)]
 parent = [0]*(N+1)
-parent[1] = 1
 
 for _ in range(N-1):
     a, b = map(int, input().split())
@@ -14,7 +13,6 @@ for _ in range(N-1):
     
 parent[1] = 0
 q = deque()
-
 q.append(1)
 
 while q:

@@ -8,43 +8,30 @@ tree = dict()
 for _ in range(N):
     p, l, r = input().split()
     tree[p] = (l, r)
-  
-answer = ''
     
 def preorder(node):
-    global answer
-    
     if node in tree:
         l, r = tree[node]
-        answer += node
+        print(node, end='')
         preorder(l)
-        preorder(r)
-    
-    
+        preorder(r)  
 
 def inorder(node):
-    global answer
-    
     if node in tree:
         l, r = tree[node]
         inorder(l)
-        answer += node
+        print(node, end='')
         inorder(r)
 
-
 def postorder(node):
-    global answer
-      
     if node in tree:
         l, r = tree[node]
         postorder(l)
         postorder(r)
-        answer += node
+        print(node, end='')
 
 preorder('A')
-answer += '\n'
+print()
 inorder('A')
-answer += '\n'
+print()
 postorder('A')
-
-print(answer)

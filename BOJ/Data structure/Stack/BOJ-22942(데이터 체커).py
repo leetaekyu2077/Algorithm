@@ -8,7 +8,6 @@ for i in range(N):
     circles.append((x-r, i))
     circles.append((x+r, i))    
 circles.sort()
-print(circles)
 
 # 올바른 괄호인지 판단하는 문제를 풀 때와 비슷. 그러나 짝이 정해져 있는 괄호라고 생각하고 풀어야 함
 # 원의 왼쪽 끝이 자신의 오른쪽 끝을 연속해서 만날 때만 짝지어져 제거 됨.

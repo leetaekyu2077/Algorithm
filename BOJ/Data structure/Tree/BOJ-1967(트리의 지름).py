@@ -1,44 +1,33 @@
 import sys
-from itertools import combinations
-from collections import deque
 input = sys.stdin.readline
 
 n = int(input())
-from_root = [0]*(n+1)
-parents = [0]*(n+1)
 tree = [[] for _ in range(n+1)]
 
 p = 0
 for _ in range(n-1):
     p, c, w = map(int, input().split()) 
     tree[p].append((c, w))
+    tree[c].append((p, w))
+
+def dfs(start):
+    max = 0
+    idx = 0
+    visited = [False]*(n+1)
+    visited[start] = True
+    stk = [(start, 0)]
+    while stk:
+        curr = stk.pop()
+        if curr[1] > max:
+            max = curr[1]
+            idx = curr[0]
+        visited[curr[0]] = True
+        for child in tree[curr[0]]:
+            if not visited[child[0]]:
+                stk.append((child[0], child[1]+curr[1]))
     
-q = deque([1])
-while q:
-    curr = q.popleft()
-    for c, w in tree[curr]:
-        if parents[c] == 0:
-            parents[c] = curr
-            from_root[c] = from_root[curr] + w
-            q.append(c)
-  
-leaves = [i for i in range(p+1, n+1)]  
-if len(tree[1]) > 0 and len(tree[1]) < 2:
-    leaves.append(1)
+    return idx, max
     
-max = 0
-for case in combinations(leaves, 2):
-    p1 = []
-    lcp = case[0]
-    while lcp > 1:
-        p1.append(parents[lcp])
-        lcp = parents[lcp]
-    lcp = case[1]
-    while lcp not in p1:
-        lcp = parents[lcp]
-    
-    dist = from_root[case[0]] + from_root[case[1]] - 2*from_root[lcp]
-    if max < dist:
-        max = dist
-        
-print(max)
+idx, _ = dfs(1)
+_, answer = dfs(idx)  
+print(answer)

@@ -2,7 +2,7 @@ import sys, math
 input = sys.stdin.readline
 sys.setrecursionlimit(20000)
 
-# 최초 풀이 - O(N)
+# 풀이1 - O(N)
 # def lca(a, b):
 #     ac = {}
 #     curr = a
@@ -26,9 +26,9 @@ sys.setrecursionlimit(20000)
 
 #     a, b = map(int, input().split())
 #     print(lca(a, b))
+# --------------------------------------------------------------
 
-
-# O(logN) 복잡도 풀이
+# 풀이2 - LCA 알고리즘 O(logN) 
 def makeTree(node, dep):
     depth[node] = dep
     for i in range(1, max):
@@ -45,7 +45,7 @@ def lca(a, b):
         for i in range(max-1, -1, -1):
             if depth[a] <= depth[parents[b][i]]:
                 b = parents[b][i]
-    
+                  
     lca = a
     if a != b:
         for i in range(max-1, -1, -1):

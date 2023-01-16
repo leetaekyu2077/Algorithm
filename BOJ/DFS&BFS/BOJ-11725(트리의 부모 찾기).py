@@ -3,7 +3,7 @@ from collections import deque
 input = sys.stdin.readline
 
 N = int(input())
-vertices = [[0] for _ in range(N+1)]
+vertices = [[] for _ in range(N+1)]
 parent = [0]*(N+1)
 
 for _ in range(N-1):
@@ -11,7 +11,7 @@ for _ in range(N-1):
     vertices[a].append(b)
     vertices[b].append(a)
     
-parent[1] = 0
+parent[0] = 1
 q = deque()
 q.append(1)
 

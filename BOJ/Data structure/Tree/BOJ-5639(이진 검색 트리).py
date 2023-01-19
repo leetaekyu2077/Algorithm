@@ -9,7 +9,9 @@ while True:
     except:
         break
 
-# 첫 풀이 - Python은 시간초과, PyPy는 통과. but 비효율적임  
+# 첫 풀이 - preorder를 통해 트리를 만들고, 이를 postorder 순회하는 방법 
+# Python은 시간초과, PyPy는 통과. but 비효율적임  
+
 # p = preorder[0]
 # parents = {}
 # children = {}
